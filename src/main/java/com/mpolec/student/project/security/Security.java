@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -41,12 +43,17 @@ public class Security extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable()
+                .headers(headers -> headers
+                        .cacheControl(HeadersConfigurer.CacheControlConfig::disable)
+                )
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/login").permitAll()
-//                .antMatchers("/static/**").permitAll()
+//                .antMatchers("/resources/**").permitAll()
+//                .antMatchers("/css/*.css", "/fonts/**", "/libs/**").permitAll()
 //                .antMatchers("/css/**").permitAll()
+//                .antMatchers("/**/*.js", "/**/*.css").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -61,4 +68,11 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true);
     }
+
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web
+//                .ignoring()
+//                .antMatchers("/css/*.css", "/fonts/**", "/libs/**");
+//    }
 }
