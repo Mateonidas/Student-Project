@@ -29,11 +29,6 @@ public class HomeController {
         return "home/loginPage";
     }
 
-//    @GetMapping("/logout")
-//    public String logoutPage() {
-//        return "home/loginPage";
-//    }
-
     @GetMapping("/home")
     public String homePage(Model model, Principal principal) {
         model.addAttribute("user", userService.findByLogin(principal.getName()));
