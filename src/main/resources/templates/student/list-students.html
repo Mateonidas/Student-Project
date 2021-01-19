@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="layout/navbar :: head">
+    <title id="pageTitle">Student List</title>
+</head>
+
+<body>
+
+<div th:include="layout/navbar :: navigationPanel"></div>
+
+<div class="container">
+    <h3 th:text="#{student.studentDirectory}"></h3>
+    <hr>
+
+    <a th:href="@{/students/showFormForAdd}" class="btn btn-primary btn-sm mb-3" th:text="#{student.addStudent}"></a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th th:text="#{studentList.firstName}"></th>
+            <th th:text="#{studentList.lastName}"></th>
+            <th th:text="#{studentList.email}"></th>
+            <th th:text="#{action}"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempStudent : ${students}">
+            <td th:text="${tempStudent.firstName}"/>
+            <td th:text="${tempStudent.lastName}"/>
+            <td th:text="${tempStudent.email}"/>
+
+            <td>
+                <a th:href="@{/students/showFormForUpdate(studentId=${tempStudent.id})}"
+                   class="btn btn-info btn-sm" th:text="#{action.update}">
+                </a>
+
+                <a th:href="@{/students/delete(studentId=${tempStudent.id})}"
+                   class="btn btn-danger btn-sm" th:text="#{action.delete}"
+                   th:data-confirm-delete="#{confirmDeleteStudent}"
+                onclick="if (!(confirm(this.getAttribute('data-confirm-delete')))) return false">
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>

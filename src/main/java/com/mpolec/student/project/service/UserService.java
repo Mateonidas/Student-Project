@@ -8,4 +8,6 @@ public interface UserService {
     void save(UserEntity user);
 
     UserEntity findByLogin(String login);
+
+
 }

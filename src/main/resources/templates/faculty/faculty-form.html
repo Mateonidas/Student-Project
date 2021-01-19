@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="layout/navbar :: head">
+    <title id="pageTitle">Faculty Form</title>
+</head>
+<body>
+
+<div th:include="layout/navbar :: navigationPanel"></div>
+
+<div class="container">
+    <h3 th:text="#{faculty.facultyDirectory}"></h3>
+    <hr>
+
+    <p class="h4 mb-4" th:text="#{facultyForm.saveFaculty}"></p>
+
+    <form th:action="@{/faculties/save}"
+          th:object="${faculty}" method="POST">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <input type="text" th:field="*{shortcut}" class="form-control mb-4 col-4" th:placeholder="#{shortcut}">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('shortcut')}" role="alert">
+            <span th:errors="*{shortcut}"></span>
+        </div>
+
+        <input type="text" th:field="*{name}" class="form-control mb-4 col-4" th:placeholder="#{name}">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('name')}" role="alert">
+            <span th:errors="*{name}"></span>
+        </div>
+
+        <input type="text" th:field="*{address}" class="form-control mb-4 col-4" th:placeholder="#{address}">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('address')}" role="alert">
+            <span th:errors="*{address}"></span>
+        </div>
+
+        <button type="submit" class="btn btn-info col-2" th:text="#{save}"></button>
+    </form>
+
+    <hr>
+    <a th:href="@{/faculties/list}" th:text="#{facultyForm.backList}"></a>
+</div>
+
+</body>
+
+</html>

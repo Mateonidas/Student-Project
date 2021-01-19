@@ -22,4 +22,8 @@ public class StudentEntity {
 
     @Column(name = "email")
     private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "id_faculty", referencedColumnName = "id")
+    private FacultyEntity faculty;
 }

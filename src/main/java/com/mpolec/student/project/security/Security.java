@@ -50,10 +50,6 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/login").permitAll()
-//                .antMatchers("/resources/**").permitAll()
-//                .antMatchers("/css/*.css", "/fonts/**", "/libs/**").permitAll()
-//                .antMatchers("/css/**").permitAll()
-//                .antMatchers("/**/*.js", "/**/*.css").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -69,10 +65,9 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true);
     }
 
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web
-//                .ignoring()
-//                .antMatchers("/css/*.css", "/fonts/**", "/libs/**");
-//    }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/css/**", "/js/**", "/img/**", "/webjars/**", "/fragments/**");
+    }
 }

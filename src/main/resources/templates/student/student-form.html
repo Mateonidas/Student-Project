@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="layout/navbar :: head">
+    <title id="pageTitle">Student Form</title>
+</head>
+<body>
+
+<div th:include="layout/navbar :: navigationPanel"></div>
+
+<div class="container">
+    <h3 th:text="#{student.studentDirectory}"></h3>
+    <hr>
+
+    <p class="h4 mb-4" th:text="#{studentForm.saveStudent}"></p>
+
+    <form th:action="@{/students/save}"
+          th:object="${student}" method="POST">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <input type="text" th:field="*{firstName}" class="form-control mb-4 col-4" th:placeholder="#{firstName}">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" role="alert">
+            <span th:errors="*{firstName}"></span>
+        </div>
+
+        <input type="text" th:field="*{lastName}" class="form-control mb-4 col-4" th:placeholder="#{lastName}">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" role="alert">
+            <span th:errors="*{lastName}"></span>
+        </div>
+
+        <input type="text" th:field="*{email}" class="form-control mb-4 col-4" th:placeholder="#{email}">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" role="alert">
+            <span th:errors="*{email}"></span>
+        </div>
+
+        <select th:field="*{facultyId}">
+            <option th:each="i : ${session.faculties}" th:value="${i.getId()}" th:text="${i.getName()}">
+            </option>
+        </select>
+        <br>
+        <br>
+
+        <button type="submit" class="btn btn-info col-2" th:text="#{save}"></button>
+    </form>
+
+    <hr>
+    <a th:href="@{/students/list}" th:text="#{studentForm.backToList}"></a>
+</div>
+
+</body>
+
+</html>

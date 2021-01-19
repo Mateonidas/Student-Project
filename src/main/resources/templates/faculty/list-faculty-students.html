@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="layout/navbar :: head">
+    <title id="pageTitle">Faculty Students List</title>
+</head>
+
+<body>
+
+<div th:include="layout/navbar :: navigationPanel"></div>
+
+<div class="container">
+    <h3 th:text="#{faculty.facultyDirectory}"></h3>
+    <hr>
+
+    <a th:href="@{/faculties/list}"
+       class="btn btn-primary btn-sm mb-3" th:text="#{facultyForm.backList}">
+    </a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th th:text="#{firstName}"></th>
+            <th th:text="#{lastName}"></th>
+            <th th:text="#{email}"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempStudent : ${students}">
+            <td th:text="${tempStudent.firstName}"/>
+            <td th:text="${tempStudent.lastName}"/>
+            <td th:text="${tempStudent.email}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>

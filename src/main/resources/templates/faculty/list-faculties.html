@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="layout/navbar :: head">
+    <title id="pageTitle">Faculty List</title>
+</head>
+
+<body>
+
+<div th:include="layout/navbar :: navigationPanel"></div>
+
+<div class="container">
+    <h3 th:text="#{faculty.facultyDirectory}"></h3>
+    <hr>
+
+    <a th:href="@{/faculties/showFormForAdd}"
+       class="btn btn-primary btn-sm mb-3" th:text="#{faculty.addFaculty}">
+    </a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th th:text="#{shortcut}"></th>
+            <th th:text="#{name}"></th>
+            <th th:text="#{address}"></th>
+            <th th:text="#{action}"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempFaculty : ${faculties}">
+            <td th:text="${tempFaculty.shortcut}"/>
+            <td th:text="${tempFaculty.name}"/>
+            <td th:text="${tempFaculty.address}"/>
+
+            <td>
+                <a th:href="@{/faculties/showFormForUpdate(facultyId=${tempFaculty.id})}"
+                   class="btn btn-info btn-sm" th:text="#{action.update}">
+                </a>
+
+                <a th:href="@{/faculties/showStudentList(facultyId=${tempFaculty.id})}"
+                   class="btn btn-info btn-sm" th:text="#{action.showStudents}">
+                </a>
+
+                <a th:href="@{/faculties/delete(facultyId=${tempFaculty.id})}"
+                   class="btn btn-danger btn-sm" th:text="#{action.delete}"
+                   th:data-confirm-delete="#{confirmDeleteFaculty}"
+                   onclick="if (!(confirm(this.getAttribute('data-confirm-delete')))) return false">
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>

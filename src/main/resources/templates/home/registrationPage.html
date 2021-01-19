@@ -22,38 +22,43 @@
                         </div>
                     </div>
                     <form th:action="@{/register}" method="POST" th:object="${user}" name="registration">
+
                         <div class="form-group">
                             <label for="firstname" th:text="#{firstName}"></label>
                             <input type="text" th:field="*{name}" class="form-control" id="firstname"
                                    aria-describedby="emailHelp" th:placeholder="#{input.firstName}">
                         </div>
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('name')}" role="alert">
-                            <p class="error" th:errors="*{name}"></p>
+                            <span th:errors="*{name}"></span>
                         </div>
+
                         <div class="form-group">
                             <label for="lastname" th:text="#{lastName}"></label>
                             <input type="text" th:field="*{surname}" class="form-control" id="lastname"
                                    aria-describedby="emailHelp" th:placeholder="#{input.lastName}">
                         </div>
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('surname')}" role="alert">
-                            <p class="error" th:errors="*{surname}"></p>
+                            <span th:errors="*{surname}"></span>
                         </div>
+
                         <div class="form-group">
                             <label for="login" th:text="#{username}"></label>
                             <input type="text" th:field="*{login}" class="form-control" id="login"
                                    aria-describedby="emailHelp" th:placeholder="#{input.username}">
                         </div>
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('login')}" role="alert">
-                            <p class="error" th:errors="*{login}"></p>
+                            <span th:errors="*{login}"></span>
                         </div>
+
                         <div class="form-group">
                             <label for="password" th:text="#{password}"></label>
                             <input type="password" th:field="*{password}" id="password" class="form-control"
                                    aria-describedby="emailHelp" th:placeholder="#{input.password}">
                         </div>
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('password')}" role="alert">
-                            <p class="error" th:errors="*{password}"></p>
+                            <span th:errors="*{password}"></span>
                         </div>
+
                         <div class="col-md-12 text-center mb-3">
                             <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm"
                                     th:text="#{registration.button}"></button>
