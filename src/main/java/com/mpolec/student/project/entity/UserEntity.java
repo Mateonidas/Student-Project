@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -26,4 +27,7 @@ public class UserEntity {
 
     @NotBlank(message = "Password is mandatory")
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Collection<StudentEntity> students;
 }

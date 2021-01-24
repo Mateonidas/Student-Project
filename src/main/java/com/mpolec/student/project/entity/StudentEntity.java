@@ -26,4 +26,8 @@ public class StudentEntity {
     @ManyToOne
     @JoinColumn(name = "id_faculty", referencedColumnName = "id")
     private FacultyEntity faculty;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user", referencedColumnName = "userid")
+    private UserEntity user;
 }

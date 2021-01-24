@@ -2,9 +2,11 @@ package com.mpolec.student.project.controller;
 
 import com.mpolec.student.project.entity.FacultyEntity;
 import com.mpolec.student.project.entity.StudentEntity;
+import com.mpolec.student.project.entity.UserEntity;
 import com.mpolec.student.project.model.StudentModel;
 import com.mpolec.student.project.service.FacultyService;
 import com.mpolec.student.project.service.StudentService;
+import com.mpolec.student.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +15,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 @RequestMapping("/students")
 public class StudentController {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private StudentService studentService;
@@ -26,10 +32,11 @@ public class StudentController {
     private FacultyService facultyService;
 
     @GetMapping("/list")
-    public String listStudents(Model model) {
+    public String listStudents(Model model, Principal principal) {
 
-        List<StudentEntity> students = studentService.findAll();
-        model.addAttribute("students", students);
+        UserEntity user = userService.findByLogin(principal.getName());
+//        List<StudentEntity> students = user.getStudents();
+        model.addAttribute("students", user.getStudents());
 
         return "student/list-students";
     }
